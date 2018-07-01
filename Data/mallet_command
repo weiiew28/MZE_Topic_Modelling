@@ -1,0 +1,12 @@
+""" MZE topic modelling """
+-- import-dir
+mallet import-dir --input /Users/Wei/Documents/Technique_Study/Coding/LeetCode/MZE/Data/Corpus --output /Users/Wei/Documents/Technique_Study/Coding/LeetCode/MZE/Data/mze.mallet --stoplist-file /Users/Wei/Documents/Technique_Study/Coding/LeetCode/MZE/Data/de_stop_addstem.txt --keep-sequence 
+-- train-topics
+mallet train-topics --input /Users/Wei/Documents/Technique_Study/Coding/LeetCode/MZE/Data/mze.mallet --output-topic-keys /Users/Wei/Documents/Technique_Study/Coding/LeetCode/MZE/Data/mze_topic_keywords --num-top-words 50 --show-topics-interval 250 --topic-word-weights-file /Users/Wei/Documents/Technique_Study/Coding/LeetCode/MZE/Data/mze_topic_word_weights.csv --output-doc-topics /Users/Wei/Documents/Technique_Study/Coding/LeetCode/MZE/Data/mze_doc_topics.csv --num-topics 20 --num-iterations 1000 --optimize-burn-in 400 --alpha 1.0 --beta 0.01
+""" MZE classifier for authorship """
+-- import-file
+mallet import-file --input /Users/Wei/Documents/Technique_Study/Coding/LeetCode/MZE/Data/mze_authorship.csv  --label 1  --name 0 --data 2  --stoplist-file /Users/Wei/Documents/Technique_Study/Coding/LeetCode/MZE/Data/de_stop_addstem.txt —output /Users/Wei/Documents/Technique_Study/Coding/LeetCode/MZE/Data/mze_author.vectors
+
+-- split
+mallet split --input /Users/Wei/Documents/Technique_Study/Coding/LeetCode/MZE/Data/mze_author.vectors --output /Users/Wei/Documents/Technique_Study/Coding/LeetCode/MZE/Data/mze_author_prune.vectors --prune-infogain 100
+
